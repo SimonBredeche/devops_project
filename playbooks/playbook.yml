@@ -1,0 +1,6 @@
+- name: Front Container deploy
+  hosts: back
+  become: true
+  become_method: sudo
+  roles: 
+    - backend
