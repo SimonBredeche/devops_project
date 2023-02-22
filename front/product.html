@@ -2,15 +2,15 @@
 <html>
 
 <head>
-    <title>Titre de la page</title>
+    <title>Produit - Shopsify</title>
+    <link rel="stylesheet" href="./style/reset.css">
     <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="/style/ariane.css">
+    <link rel="stylesheet" href="./style/ariane.css">
 </head>
 <header>
     <nav>
         <div>
-            <img />
-            <h1>Nom du site</h1>
+            <h1>Shopsify</h1>
         </div>
         <ul>
             <li><a href="index.html">Nos produits</a></li>
@@ -28,73 +28,47 @@
         <a href="panier.html">Panier</a>
     </div>
     <section id="product-item">
-        <!-- <img src="assets/img/product.jpg" alt="chaise-de-bureau" /> -->
-        <!-- <div>
-            <div class="product-head">
-                <h1>Chaise de bureau</h1>
-                <h2>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                    and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                    leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
-                    with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-                    publishing software like Aldus PageMaker including versions of Lorem Ipsum.</h2>
-            </div>
-            <div>
-                <h3>Choisir une autre couleur</h3>
-                <div class="color-list">
-                    <span class="--white"></span>
-                    <span class="--red"></span>
-                    <span class="--yellow"></span>
-                    <span class="--green"></span>
-                </div>
-            </div>
-            <div class="product-submit">
-                <button>Ajouter au panier</button>
-                <div>
-                    <p>24.99€ <span>- dont 1 centime d'éco participation</span></p>
-                </div>
-            </div>
-        </div> -->
+
     </section>
     <section class="small-product-list">
         <a href="product.html ">
             <div>
-                <img src="/assets/img/product.jpg" alt="product" />
+                <img src="./assets/img/product.jpg" alt="product" />
                 <p>Chaise de bureau</p>
                 <p>24.99€</p>
             </div>
         </a>
         <a href="product.html ">
             <div>
-                <img src="/assets/img/product.jpg" alt="product" />
+                <img src="./assets/img/product.jpg" alt="product" />
                 <p>Chaise de bureau</p>
                 <p>24.99€</p>
             </div>
         </a>
         <a href="product.html ">
             <div>
-                <img src="/assets/img/product.jpg" alt="product" />
+                <img src="./assets/img/product.jpg" alt="product" />
                 <p>Chaise de bureau</p>
                 <p>24.99€</p>
             </div>
         </a>
         <a href="product.html ">
             <div>
-                <img src="/assets/img/product.jpg" alt="product" />
+                <img src="./assets/img/product.jpg" alt="product" />
                 <p>Chaise de bureau</p>
                 <p>24.99€</p>
             </div>
         </a>
         <a href="product.html ">
             <div>
-                <img src="/assets/img/product.jpg" alt="product" />
+                <img src="./assets/img/product.jpg" alt="product" />
                 <p>Chaise de bureau</p>
                 <p>24.99€</p>
             </div>
         </a>
         <a href="product.html ">
             <div>
-                <img src="/assets/img/product.jpg" alt="product" />
+                <img src="./assets/img/product.jpg" alt="product" />
                 <p>Chaise de bureau</p>
                 <p>24.99€</p>
             </div>
@@ -106,7 +80,7 @@
 
 
 <script>
-    // get the query param id value on load
+
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
 
@@ -120,6 +94,15 @@
     const myItem = items.find(item => item.id == id)
 
     const productItem = document.getElementById('product-item')
+
+    const ariane = document.querySelector('.ariane')
+    const divAriane = ariane.children[0]
+    const spanAriane = document.createElement('span')
+    spanAriane.textContent = '>'
+    divAriane.appendChild(spanAriane)
+    const aAriane = document.createElement('a')
+    aAriane.textContent = myItem.name
+    divAriane.appendChild(aAriane)
 
     const img = document.createElement('img')
     img.setAttribute('src', myItem.url)
@@ -175,6 +158,18 @@
     const button = document.createElement('button')
     button.textContent = 'Ajouter au panier'
     div5.appendChild(button)
+
+    button.addEventListener('click', () => {
+        const cart = JSON.parse(localStorage.getItem('cart'))
+        if (!cart) {
+            const newCart = []
+            newCart.push(myItem)
+            localStorage.setItem('cart', JSON.stringify(newCart))
+        } else {
+            cart.push(myItem)
+            localStorage.setItem('cart', JSON.stringify(cart))
+        }
+    })
 
     const div6 = document.createElement('div')
     div5.appendChild(div6)

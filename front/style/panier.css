@@ -80,6 +80,7 @@ section.panier-content > div {
 section.panier-content div.item-content {
     display:flex;
     gap: 20px;
+    align-items: flex-start;
 }
 
 section.panier-content  div.item-content > div p:first-child{

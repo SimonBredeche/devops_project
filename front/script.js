@@ -1,6 +1,7 @@
-fetch("http://192.168.152.134:7070/Product")
+fetch("http://localhost:8184/api/auth")
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             let items = data["data"]
             const product_list = document.getElementById("product-list");
             items.forEach(item => {

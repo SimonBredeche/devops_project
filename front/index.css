@@ -103,7 +103,8 @@ button {
     font-weight: 700;
     padding: 13px 70px;
     border-radius: 1000px;
-    border: none
+    border: none;
+    cursor: pointer;
 }
 
 #product-item h1 {
