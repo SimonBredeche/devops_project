@@ -19,4 +19,8 @@ jobs:
 
     - name: Print PHP version
       run: echo ${{ steps.setup-php.outputs.php-version }}
+      
+    - name: run ls command
+      run: ls
+    
 
