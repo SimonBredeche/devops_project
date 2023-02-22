@@ -4,6 +4,7 @@
 <head>
     <title>Titre de la page</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="/style/ariane.css">
 </head>
 <header>
     <nav>
@@ -20,9 +21,11 @@
 </header>
 
 <body>
-    <div class="ariane">
-        <a href="index.html">PRODUITS</a> <span>></span><a href="index.html">MEUBLE</a><span>></span><a
-            href="product.html">CHAISE DE BUREAU</a>
+    <div class="ariane ariane--small">
+        <div>
+            <a href="index.html">PRODUITS</a> <span>></span><a href="index.html">MEUBLE</a>
+        </div>
+        <a href="panier.html">Panier</a>
     </div>
     <section id="product-item">
         <!-- <img src="assets/img/product.jpg" alt="chaise-de-bureau" /> -->
@@ -152,7 +155,7 @@
     const span1 = document.createElement('span')
     span1.setAttribute('class', '--white')
     div4.appendChild(span1)
-    
+
     const span2 = document.createElement('span')
     span2.setAttribute('class', '--red')
     div4.appendChild(span2)
@@ -172,14 +175,14 @@
     const button = document.createElement('button')
     button.textContent = 'Ajouter au panier'
     div5.appendChild(button)
-    
+
     const div6 = document.createElement('div')
     div5.appendChild(div6)
 
     const p = document.createElement('p')
     p.textContent = myItem.price + '€'
     div6.appendChild(p)
-    
+
     const span = document.createElement('span')
 
     span.textContent = '- dont 1 centime d\'éco participation'

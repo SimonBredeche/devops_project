@@ -1,20 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
-    font-size: 1rem;
-    color: #fff;
-    text-decoration: none;
-  }
-
-body {
-    background-color: #02182B;
-}
-
 body > #product-list {
     width: 100%;
     max-width: 1240px;
@@ -91,29 +74,6 @@ header nav ul li a {
     color: #fff;
 }
 
-.ariane{
-    width: 100%;
-    max-width: 1240px;
-    margin: 80px auto 40px auto;
-    display: flex;
-    gap: 10px;
-}
-
-.ariane a {
-    font-size: 18px;
-    text-transform: uppercase;
-}
-
-.ariane a:hover {
-    text-decoration: underline;
-    cursor: pointer;
-    transition: 200ms;
-}
-
-.ariane span {
-    color: #D7263D;
-    font-size: 18px;
-}
 
 #product-item {
     width: 100%;
