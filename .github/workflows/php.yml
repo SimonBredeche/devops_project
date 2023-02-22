@@ -21,6 +21,6 @@ jobs:
       run: echo ${{ steps.setup-php.outputs.php-version }}
       
     - name: run ls command
-      run: ls
+      run: php back/unit_test/test_function.php
     
 
