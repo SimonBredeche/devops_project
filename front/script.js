@@ -1,10 +1,11 @@
-fetch("http://localhost:8184/api/auth")
+fetch("http://192.168.152.134:7070/Product")
         .then(response => response.json())
         .then(data => {
+            let items = data["data"]
             const product_list = document.getElementById("product-list");
-            data.forEach(item => {
+            items.forEach(item => {
                 const product = document.createElement("a");
-                product.href = "product.html?id=" + item.id;
+                product.href = "product.html?id=" + item.id ;
                 const product_div = document.createElement("div");
                 const product_img = document.createElement("img");
                 product_img.src = item.url;
@@ -18,4 +19,5 @@ fetch("http://localhost:8184/api/auth")
                 product.appendChild(product_div);
                 product_list.appendChild(product);
             });
-        });
+        }
+    );
