@@ -1,6 +1,12 @@
-- name: Front Container deploy
+- name: Back Container deploy
   hosts: back
   become: true
   become_method: sudo
   roles: 
     - backend
+- name: Front Container deploy
+  hosts: front
+  become: true
+  become_method: sudo
+  roles: 
+    - docker
