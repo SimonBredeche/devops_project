@@ -10,7 +10,10 @@ class ProductModel extends Model {
         if($id != null){
             $condition = "WHERE p.id = ? ";
         }
-        $sql = "SELECT *
+        $sql = "SELECT 	
+                    p.*,
+                    c.name as category_name,
+                    c.id as category_id
                 FROM product p
                 LEFT JOIN category c ON c.id = p.id_category
                 $condition";
