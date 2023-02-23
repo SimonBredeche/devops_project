@@ -10,7 +10,7 @@ class bd{
     
     function __construct()
     {
-        $this->host = "192.168.152.137";
+        $this->host = "127.0.0.1";
         $this->user = "demo";
         $this->bdd = "demo_devops";
         $this->passwd = "demo";

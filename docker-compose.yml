@@ -1,7 +1,8 @@
 version: "3"
 services:
   db:
-    image: mysql:5.7
+    platform: linux/x86_64
+    image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: demo
       MYSQL_DATABASE: demo_devops
@@ -10,7 +11,8 @@ services:
     ports:
       - "9906:3306"
   web:
-    image: php:7.2.2-apache
+    image: img-static-site-example
+    build: .
     container_name: php_web
     depends_on:
       - db
@@ -19,3 +21,12 @@ services:
     ports:
       - "8100:80"
     tty: true
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_ARBITRARY=1
