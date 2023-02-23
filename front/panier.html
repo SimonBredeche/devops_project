@@ -13,11 +13,12 @@
         </div>
         <ul>
             <li><a href="index.html">Nos produits</a></li>
-            <li><a href="#">Connexion</a></li>
-            <li><a href="#">Inscription</a></li>
+            <li><a href="login.html">Connexion</a></li>
+            <li><a href="register.html">Inscription</a></li>
         </ul>
     </nav>
 </header>
+
 
 <body>
     <section class="panier">
@@ -50,7 +51,7 @@
         const item = document.createElement('div');
         item.innerHTML = `
         <div class="item-content">
-        <img src="./assets/img/product.jpg"/>
+        <img src="${element.url}"/>
         <div>
             <p>${element.name}</p>
             <p>${element.price}€</p>

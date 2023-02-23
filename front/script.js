@@ -1,4 +1,4 @@
-fetch("http://localhost:8184/api/auth")
+fetch("http://localhost:8100/Product")
         .then(response => response.json())
         .then(data => {
             console.log(data)
