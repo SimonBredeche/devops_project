@@ -21,7 +21,7 @@ class bd{
     }
 
     public function connect(){
-        $this->co = mysqli_connect($this->host , $this->user , $this->passwd, $this->bdd,3306);
+        $this->co = mysqli_connect($this->host , $this->user , $this->passwd, $this->bdd,9906);
     }
 
     public function disconnect(){

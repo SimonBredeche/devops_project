@@ -15,9 +15,12 @@ class Model {
         $this->bd->connect(); 
         $stmt = $this->bd->getco()->prepare($sql);
         $stmt = mysqli_prepare($this->bd->getco(),$sql);
+        $types = "";
         foreach ($params as $param) {
-            $type = is_string($param) ? 's' : 'i';
-            $stmt->bind_param($type, $param);
+            $types .= is_string($param) ? 's' : 'i';
+        }
+        if($types != ""){
+            $stmt->bind_param($types, ...$params);
         }
         $stmt->execute();
         $result = $stmt->get_result();
