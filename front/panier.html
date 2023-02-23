@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Panier - Shopsify</title>
+    <link rel="stylesheet" href="./style/reset.css">
+    <link rel="stylesheet" href="./style/panier.css">
+</head>
+<header>
+    <nav>
+        <div>
+            <h1>Shopsify</h1>
+        </div>
+        <ul>
+            <li><a href="index.html">Nos produits</a></li>
+            <li><a href="#">Connexion</a></li>
+            <li><a href="#">Inscription</a></li>
+        </ul>
+    </nav>
+</header>
+
+<body>
+    <section class="panier">
+        <section class="panier-content">
+
+        </section>
+        <section class="panier-recap">
+            <div>
+                <h1>Récapitulatif</h1>
+                <p>0 article</p>
+                <div>
+                    <p>Total :</p>
+                    <p>0€</p>
+                </div>
+                <button>Commander</button>
+            </div>
+        </section>
+    </section>
+</body>
+
+</html>
+
+<script>
+
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    console.log(cart);
+
+    cart.forEach(element => {
+
+        const item = document.createElement('div');
+        item.innerHTML = `
+        <div class="item-content">
+        <img src="./assets/img/product.jpg"/>
+        <div>
+            <p>${element.name}</p>
+            <p>${element.price}€</p>
+            <p>Quantité : 1</p>
+        </div>
+        <button class="text">supprimer l'article</button>
+        </div>
+        `;
+        document.querySelector('.panier-content').appendChild(item);
+        // add click event on button class text, to remove item from cart
+        item.querySelector('.text').addEventListener('click', () => {
+            // remove item from cart
+            const index = cart.indexOf(element);
+            cart.splice(index, 1);
+            // update cart in local storage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            // remove item from DOM
+            item.remove();
+            const totalPrice = cart.reduce((acc, item) => {
+                const price = parseFloat(acc) + parseFloat(item.price);
+                return parseFloat(price).toFixed(2);
+            }, 0);
+
+            document.querySelector('.panier-recap div div p:last-child').innerHTML = `${totalPrice}€`;
+            document.querySelector('.panier-recap div > p').innerHTML = `${cart.length} articles`;
+        });
+
+    });
+
+    // in section .panier-recap, add the total price of all items in cart
+    const totalPrice = cart.reduce((acc, item) => {
+        // format price to 2 decimals
+        // make addition of acc and item.price
+        const price = parseFloat(acc) + parseFloat(item.price);
+        return parseFloat(price).toFixed(2);
+    }, 0);
+
+    document.querySelector('.panier-recap div div p:last-child').innerHTML = `${totalPrice}€`;
+
+    // first p in panier-recap div 
+    document.querySelector('.panier-recap div > p').innerHTML = `${cart.length} ${cart.length < 2 ? "article" : "articles" }`;
+
+    // click event on button in panier-recap -> remove localStorage cart
+    document.querySelector('.panier-recap button').addEventListener('click', () => {
+        localStorage.removeItem('cart');
+        window.location.href = 'index.html';
+    });
+
+
+
+</script>

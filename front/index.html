@@ -2,14 +2,15 @@
 <html>
 
 <head>
-    <title>Titre de la page</title>
+    <title>Liste des produits - Shopsify</title>
+    <link rel="stylesheet" href="./style/reset.css">
+    <link rel="stylesheet" href="./style/ariane.css">
     <link rel="stylesheet" href="index.css">
 </head>
 <header>
     <nav>
         <div>
-            <img />
-            <h1>Nom du site</h1>
+            <h1>Shopsify</h1>
         </div>
         <ul>
             <li><a href="index.html">Nos produits</a></li>
@@ -21,49 +22,16 @@
 
 <body>
     <div class="ariane">
-        <a href="index.html">PRODUITS</a> <span>></span><a href="index.html">MEUBLE</a>
+        <div>
+            <a href="index.html">PRODUITS</a> <span>></span><a href="index.html">MEUBLE</a>
+        </div>
+        <a href="panier.html">Panier</a>
     </div>
     <section id="product-list">
-        <!-- <a href="product.html ">
-            <div>
-                <img src="/assets/img/product.jpg" alt="product" />
-                <p>Chaise de bureau</p>
-                <p>24.99€</p>
-            </div>
-        </a> -->
     </section>
 </body>
 
 </html>
 
-
-<script>    
-    fetch("http://192.168.152.134:7070/Product")
-        .then(response => response.json())
-        .then(data => {
-            let items = data["data"]
-            const product_list = document.getElementById("product-list");
-            items.forEach(item => {
-                const product = document.createElement("a");
-                product.href = "product.html?id=" + item.id ;
-                const product_div = document.createElement("div");
-                const product_img = document.createElement("img");
-                product_img.src = item.url;
-                const product_name = document.createElement("p");
-                product_name.innerText = item.name;
-                const product_price = document.createElement("p");
-                product_price.innerText = item.price + "€";
-                product_div.appendChild(product_img);
-                product_div.appendChild(product_name);
-                product_div.appendChild(product_price);
-                product.appendChild(product_div);
-                product_list.appendChild(product);
-            });
-        }
-    );
-
-
-
-
-
+<script src="script.js">
 </script>
