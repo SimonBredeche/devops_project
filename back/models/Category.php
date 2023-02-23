@@ -1,5 +1,5 @@
 <?php 
-class ProductModel extends Model {
+class CategoryModel extends Model {
 
     function __construct(){
         parent::__construct();
@@ -8,11 +8,10 @@ class ProductModel extends Model {
     public function get($id = null){
         $condition = "";
         if($id != null){
-            $condition = "WHERE p.id = ? ";
+            $condition = "WHERE c.id = ? ";
         }
         $sql = "SELECT *
-                FROM product p
-                LEFT JOIN category c ON c.id = p.id_category
+                FROM category c
                 $condition";
 
         $params = [];
