@@ -10,7 +10,7 @@ class bd{
     
     function __construct()
     {
-        $this->host = "127.0.0.1";
+        $this->host = "192.168.152.137";
         $this->user = "demo";
         $this->bdd = "demo_devops";
         $this->passwd = "demo";
@@ -21,7 +21,7 @@ class bd{
     }
 
     public function connect(){
-        $this->co = mysqli_connect($this->host , $this->user , $this->passwd, $this->bdd,9906);
+        $this->co = mysqli_connect($this->host , $this->user , $this->passwd, $this->bdd,3306);
     }
 
     public function disconnect(){
