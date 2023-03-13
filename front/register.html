@@ -23,14 +23,14 @@
     <section id="login">
         <div>
             <h1>Inscription</h1>
-            <form>
+            <form id="registerUser">
                 <div class="form-name">
-                    <input placeholder="Prénom" />
-                    <input placeholder="Nom" />
+                    <input name="first_name" placeholder="Prénom" />
+                    <input name="last_name" placeholder="Nom" />
                 </div>
-                <input placeholder="Adresse email" />
-                <input placeholder="Mot de passe" />
-                <input placeholder="Confirmer mot de passe" />
+                <input name="email" type="email" placeholder="Adresse email" />
+                <input name="password" type="password" placeholder="Mot de passe" />
+                <input type="password" placeholder="Confirmer mot de passe" />
 
                 <div class="actions">
                     <a>J'ai déjà un compte</a>
@@ -44,3 +44,34 @@
 </body>
 
 </html>
+
+<script>
+        const form = document.getElementById('registerUser');
+        form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const first_name = form.children[0].children[0].value;
+        const last_name = form.children[0].children[1].value;
+        const email = form.children[1].value;
+        const password = form.children[2].value;
+        const data = {
+            first_name,
+            last_name,
+            email,
+            password,
+        }
+        fetch('http://localhost:8100/user/create', {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                if (res.status === 200) {
+                    window.location.href = 'login.html';
+                }
+            })
+            .catch(err => console.log(err));
+    })
+
+</script>
