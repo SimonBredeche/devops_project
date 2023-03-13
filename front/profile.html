@@ -1,40 +1,46 @@
-fetch("http://localhost:8100/Product")
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)
-        let items = data["data"]
-        const product_list = document.getElementById("product-list");
-        items.forEach(item => {
-            const product = document.createElement("a");
-            product.href = "product.html?id=" + item.id;
-            const product_div = document.createElement("div");
-            const product_img = document.createElement("img");
-            product_img.src = item.url;
-            const product_name = document.createElement("p");
-            product_name.innerText = item.name;
-            const product_price = document.createElement("p");
-            product_price.innerText = item.price + "€";
-            product_div.appendChild(product_img);
-            product_div.appendChild(product_name);
-            product_div.appendChild(product_price);
-            product.appendChild(product_div);
-            product_list.appendChild(product);
-        });
-    }
-    );
+<!DOCTYPE html>
+<html>
 
-// get from my local storage item devops-token
+<head>
+    <title>Profil - Shopsify</title>
+    <link rel="stylesheet" href="./style/reset.css">
+    <link rel="stylesheet" href="./style/ariane.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<header>
+    <nav>
+        <div>
+            <h1>Shopsify</h1>
+        </div>
+        <ul id="nav-header">
+        </ul>
+    </nav>
+</header>
+
+<body>
+    <section id="user-main-info">
+        <h2>Votre profil</h2>
+        <div id="user-info">
+
+        </div>
+    </section>
+</body>
+
+</html>
+
+<script>
+
 let token = localStorage.getItem("devops-token");
-fetch("http://localhost:8100/user/getinfo", {
-    method: 'POST',
-    mode: 'cors',
-    body: JSON.stringify({ session_id: token })
-})
+    fetch("http://localhost:8100/user/getinfo", {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify({session_id: token})
+    })
     .then(response => response.json())
     .then(data => {
         let user = data["data"]
-        console.log(user.user_data)
-        if (user === "Not logged") {
+        
+        if(user === "Not logged") {
             const nav_header = document.getElementById("nav-header");
             const nav_li1 = document.createElement("li");
             const nav_li2 = document.createElement("li");
@@ -54,7 +60,7 @@ fetch("http://localhost:8100/user/getinfo", {
             nav_header.appendChild(nav_li1);
             nav_header.appendChild(nav_li2);
             nav_header.appendChild(nav_li3);
-        } else if (user.user_data) {
+        } else if(user.user_data) {
             const nav_header = document.getElementById("nav-header");
             const nav_li1 = document.createElement("li");
             const nav_li2 = document.createElement("li");
@@ -80,6 +86,32 @@ fetch("http://localhost:8100/user/getinfo", {
                 // redirect to the index page
                 window.location.href = "index.html";
             });
+
+           const user_info = document.getElementById("user-info");
+           console.log("119",user.user_data);
+
+           // for each keys in user.user_data create a div with the key and the value
+              for (const [key, value] of Object.entries(user.user_data)) {
+                const div = document.createElement("div");
+                const h2 = document.createElement("p");
+                const p = document.createElement("p");
+                h2.innerText = key + " : ";
+                p.innerText = value;
+                div.appendChild(h2);
+                div.appendChild(p);
+                user_info.appendChild(div);
+              }
+
+           
         }
     }
-    );
+    )
+
+    document.getElementById("logout").addEventListener("click", function() {
+    // remove the token from the local storage
+    localStorage.removeItem("devops-token");
+    // redirect to the index page
+    window.location.href = "index.html";
+
+});
+</script>

@@ -14,16 +14,17 @@
         </div>
         <ul>
             <li><a href="index.html">Nos produits</a></li>
-            <li><a href="#">Connexion</a></li>
-            <li><a href="#">Inscription</a></li>
+            <li><a href="profil.html">Profil</a></li>
+            <li><a>Deconnexion</a></li>
         </ul>
     </nav>
 </header>
 
+
 <body>
     <div class="ariane ariane--small">
-        <div>
-            <a href="index.html">PRODUITS</a> <span>></span><a href="index.html">MEUBLE</a>
+        <div id="ariane-product">
+            <a href="index.html">PRODUITS</a> <span>></span>
         </div>
         <a href="panier.html">Panier</a>
     </div>
@@ -84,103 +85,166 @@
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
 
-    const items = [{ "id": 1, "name": "chaise", "price": 24.99, "url": "assets/img/product.jpg" },
-    { "id": 2, "name": "bureau", "price": 34.99, "url": "https:\/\/cdn-prod.habitat.fr\/thumbnails\/product\/1112\/1112877\/box\/850\/850\/40\/F4F4F4\/chaise-en-chene-massif-bois-clair_1112877.jpg" },
-    { "id": 3, "name": "chaise", "price": 24.99, "url": "https:\/\/www.burolia.fr\/images\/products\/bureaux-denomics-33411z.jpg" },
-    { "id": 4, "name": "bureau", "price": 34.99, "url": "assets/img/product.jpg" },
-    { "id": 5, "name": "chaise", "price": 24.99, "url": "assets/img/product.jpg" },
-    { "id": 6, "name": "bureau", "price": 34.99, "url": "assets/img/product.jpg" }]
+    fetch(`http://localhost:8100/Product/get/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            let items = data["data"]
+            const myItem = items[0]
 
-    const myItem = items.find(item => item.id == id)
+            const productItem = document.getElementById('product-item')
 
-    const productItem = document.getElementById('product-item')
+            const ariane = document.querySelector('.ariane')
+            const divAriane = ariane.children[0]
+            const aAriane = document.createElement('a')
+            aAriane.textContent = myItem.category_name
+            aAriane.setAttribute('href', 'index.html')
+            divAriane.appendChild(aAriane)
+            const spanAriane = document.createElement('span')
+            spanAriane.textContent = '>'
+            divAriane.appendChild(spanAriane)
+            const aAriane2 = document.createElement('a')
+            aAriane2.textContent = myItem.name
+            divAriane.appendChild(aAriane2)
 
-    const ariane = document.querySelector('.ariane')
-    const divAriane = ariane.children[0]
-    const spanAriane = document.createElement('span')
-    spanAriane.textContent = '>'
-    divAriane.appendChild(spanAriane)
-    const aAriane = document.createElement('a')
-    aAriane.textContent = myItem.name
-    divAriane.appendChild(aAriane)
 
-    const img = document.createElement('img')
-    img.setAttribute('src', myItem.url)
-    img.setAttribute('alt', myItem.name)
-    productItem.appendChild(img)
+            const img = document.createElement('img')
+            img.setAttribute('src', myItem.url)
+            img.setAttribute('alt', myItem.name)
+            productItem.appendChild(img)
 
-    const div = document.createElement('div')
-    productItem.appendChild(div)
+            const div = document.createElement('div')
+            productItem.appendChild(div)
 
-    const div2 = document.createElement('div')
-    div2.setAttribute('class', 'product-head')
-    div.appendChild(div2)
+            const div2 = document.createElement('div')
+            div2.setAttribute('class', 'product-head')
+            div.appendChild(div2)
 
-    const h1 = document.createElement('h1')
-    h1.textContent = myItem.name
-    div2.appendChild(h1)
+            const h1 = document.createElement('h1')
+            h1.textContent = myItem.name
+            div2.appendChild(h1)
 
-    const h2 = document.createElement('h2')
-    h2.textContent = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
-    div2.appendChild(h2)
+            const h2 = document.createElement('h2')
+            h2.textContent = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
+            div2.appendChild(h2)
 
-    const div3 = document.createElement('div')
-    div.appendChild(div3)
+            const div3 = document.createElement('div')
+            div.appendChild(div3)
 
-    const h3 = document.createElement('h3')
-    h3.textContent = 'Choisir une autre couleur'
-    div3.appendChild(h3)
+            const h3 = document.createElement('h3')
+            h3.textContent = 'Choisir une autre couleur'
+            div3.appendChild(h3)
 
-    const div4 = document.createElement('div')
-    div4.setAttribute('class', 'color-list')
-    div3.appendChild(div4)
+            const div4 = document.createElement('div')
+            div4.setAttribute('class', 'color-list')
+            div3.appendChild(div4)
 
-    const span1 = document.createElement('span')
-    span1.setAttribute('class', '--white')
-    div4.appendChild(span1)
+            const span1 = document.createElement('span')
+            span1.setAttribute('class', '--white')
+            div4.appendChild(span1)
 
-    const span2 = document.createElement('span')
-    span2.setAttribute('class', '--red')
-    div4.appendChild(span2)
+            const span2 = document.createElement('span')
+            span2.setAttribute('class', '--red')
+            div4.appendChild(span2)
 
-    const span3 = document.createElement('span')
-    span3.setAttribute('class', '--yellow')
-    div4.appendChild(span3)
+            const span3 = document.createElement('span')
+            span3.setAttribute('class', '--yellow')
+            div4.appendChild(span3)
 
-    const span4 = document.createElement('span')
-    span4.setAttribute('class', '--green')
-    div4.appendChild(span4)
+            const span4 = document.createElement('span')
+            span4.setAttribute('class', '--green')
+            div4.appendChild(span4)
 
-    const div5 = document.createElement('div')
-    div5.setAttribute('class', 'product-submit')
-    div.appendChild(div5)
+            const div5 = document.createElement('div')
+            div5.setAttribute('class', 'product-submit')
+            div.appendChild(div5)
 
-    const button = document.createElement('button')
-    button.textContent = 'Ajouter au panier'
-    div5.appendChild(button)
+            const button = document.createElement('button')
+            button.textContent = 'Ajouter au panier'
+            div5.appendChild(button)
 
-    button.addEventListener('click', () => {
-        const cart = JSON.parse(localStorage.getItem('cart'))
-        if (!cart) {
-            const newCart = []
-            newCart.push(myItem)
-            localStorage.setItem('cart', JSON.stringify(newCart))
-        } else {
-            cart.push(myItem)
-            localStorage.setItem('cart', JSON.stringify(cart))
-        }
+            button.addEventListener('click', () => {
+                const cart = JSON.parse(localStorage.getItem('cart'))
+                if (!cart) {
+                    const newCart = []
+                    newCart.push(myItem)
+                    localStorage.setItem('cart', JSON.stringify(newCart))
+                } else {
+                    cart.push(myItem)
+                    localStorage.setItem('cart', JSON.stringify(cart))
+                }
+            })
+
+            const div6 = document.createElement('div')
+            div5.appendChild(div6)
+
+            const p = document.createElement('p')
+            p.textContent = myItem.price + '€'
+            div6.appendChild(p)
+
+            const span = document.createElement('span')
+
+            span.textContent = '- dont 1 centime d\'éco participation'
+            p.appendChild(span)
+        })
+
+
+    let token = localStorage.getItem("devops-token");
+    fetch("http://localhost:8100/user/getinfo", {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify({ session_id: token })
     })
-
-    const div6 = document.createElement('div')
-    div5.appendChild(div6)
-
-    const p = document.createElement('p')
-    p.textContent = myItem.price + '€'
-    div6.appendChild(p)
-
-    const span = document.createElement('span')
-
-    span.textContent = '- dont 1 centime d\'éco participation'
-    p.appendChild(span)
-
+        .then(response => response.json())
+        .then(data => {
+            let user = data["data"]
+            if (user === "Not logged") {
+                console.log("ici")
+                const nav_header = document.getElementById("nav-header");
+                const nav_li1 = document.createElement("li");
+                const nav_li2 = document.createElement("li");
+                const nav_li3 = document.createElement("li");
+                const nav_a1 = document.createElement("a");
+                const nav_a2 = document.createElement("a");
+                const nav_a3 = document.createElement("a");
+                nav_a1.href = "index.html";
+                nav_a1.innerText = "Nos produits";
+                nav_a2.href = "login.html";
+                nav_a2.innerText = "Connexion";
+                nav_a3.href = "register.html";
+                nav_a3.innerText = "Inscription";
+                nav_li1.appendChild(nav_a1);
+                nav_li2.appendChild(nav_a2);
+                nav_li3.appendChild(nav_a3);
+                nav_header.appendChild(nav_li1);
+                nav_header.appendChild(nav_li2);
+                nav_header.appendChild(nav_li3);
+            } else if (user.user_data) {
+                const nav_header = document.getElementById("nav-header");
+                const nav_li1 = document.createElement("li");
+                const nav_li2 = document.createElement("li");
+                const nav_li3 = document.createElement("li");
+                const nav_a1 = document.createElement("a");
+                const nav_a2 = document.createElement("a");
+                const nav_a3 = document.createElement("a");
+                nav_a1.href = "index.html";
+                nav_a1.innerText = "Nos produits";
+                nav_a2.href = "profile.html";
+                nav_a2.innerText = "Profil";
+                nav_a3.innerText = "Deconnexion";
+                nav_a3.id = "logout";
+                nav_li1.appendChild(nav_a1);
+                nav_li2.appendChild(nav_a2);
+                nav_li3.appendChild(nav_a3);
+                nav_header.appendChild(nav_li1);
+                nav_header.appendChild(nav_li2);
+                nav_header.appendChild(nav_li3);
+                nav_a3.addEventListener("click", () => {
+                    // remove the token from the local storage
+                    localStorage.removeItem("devops-token");
+                    // redirect to the index page
+                    window.location.href = "index.html";
+                });
+            }
+        }
+        );
 </script>

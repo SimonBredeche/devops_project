@@ -13,11 +13,12 @@
         </div>
         <ul>
             <li><a href="index.html">Nos produits</a></li>
-            <li><a href="#">Connexion</a></li>
-            <li><a href="#">Inscription</a></li>
+            <li><a href="login.html">Connexion</a></li>
+            <li><a href="register.html">Inscription</a></li>
         </ul>
     </nav>
 </header>
+
 
 <body>
     <section class="panier">
@@ -50,7 +51,7 @@
         const item = document.createElement('div');
         item.innerHTML = `
         <div class="item-content">
-        <img src="./assets/img/product.jpg"/>
+        <img src="${element.url}"/>
         <div>
             <p>${element.name}</p>
             <p>${element.price}€</p>
@@ -99,6 +100,73 @@
         window.location.href = 'index.html';
     });
 
+
+    let token = localStorage.getItem("devops-token");
+    fetch("http://localhost:8100/user/getinfo", {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify({session_id: token})
+    })
+    .then(response => response.json())
+    .then(data => {
+        let user = data["data"]
+        console.log(user.user_data)
+        if(user === "Not logged") {
+            const nav_header = document.getElementById("nav-header");
+            const nav_li1 = document.createElement("li");
+            const nav_li2 = document.createElement("li");
+            const nav_li3 = document.createElement("li");
+            const nav_a1 = document.createElement("a");
+            const nav_a2 = document.createElement("a");
+            const nav_a3 = document.createElement("a");
+            nav_a1.href = "index.html";
+            nav_a1.innerText = "Nos produits";
+            nav_a2.href = "login.html";
+            nav_a2.innerText = "Connexion";
+            nav_a3.href = "register.html";
+            nav_a3.innerText = "Inscription";
+            nav_li1.appendChild(nav_a1);
+            nav_li2.appendChild(nav_a2);
+            nav_li3.appendChild(nav_a3);
+            nav_header.appendChild(nav_li1);
+            nav_header.appendChild(nav_li2);
+            nav_header.appendChild(nav_li3);
+        } else if(user.user_data) {
+            const nav_header = document.getElementById("nav-header");
+            const nav_li1 = document.createElement("li");
+            const nav_li2 = document.createElement("li");
+            const nav_li3 = document.createElement("li");
+            const nav_a1 = document.createElement("a");
+            const nav_a2 = document.createElement("a");
+            const nav_a3 = document.createElement("a");
+            nav_a1.href = "index.html";
+            nav_a1.innerText = "Nos produits";
+            nav_a2.href = "profile.html";
+            nav_a2.innerText = "Profil";
+            nav_a3.innerText = "Deconnexion";
+            nav_a3.id = "logout";
+            nav_li1.appendChild(nav_a1);
+            nav_li2.appendChild(nav_a2);
+            nav_li3.appendChild(nav_a3);
+            nav_header.appendChild(nav_li1);
+            nav_header.appendChild(nav_li2);
+            nav_header.appendChild(nav_li3);
+            nav_a3.addEventListener("click", () => {
+                // remove the token from the local storage
+                localStorage.removeItem("devops-token");
+                // redirect to the index page
+                window.location.href = "index.html";
+            });
+        }
+    })
+
+    document.getElementById("logout").addEventListener("click", function() {
+    // remove the token from the local storage
+    localStorage.removeItem("devops-token");
+    // redirect to the index page
+    window.location.href = "index.html";
+
+});
 
 
 </script>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Liste des produits - Shopsify</title>
+    <link rel="stylesheet" href="./style/reset.css">
+    <link rel="stylesheet" href="./style/ariane.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<header>
+    <nav>
+        <div>
+            <h1>Shopsify</h1>
+        </div>
+        <ul>
+            <li><a href="index.html">Nos produits</a></li>
+            <li><a href="login.html">Connexion</a></li>
+            <li><a href="register.html">Inscription</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<body>
+    <section id="login">
+        <div>
+            <h1>Connexion</h1>
+            <form id="loginUser">
+                <input type="email" placeholder="Adresse email" />
+                <input type="password" placeholder="Mot de passe" />
+                <a>
+                    mot de passe oublié
+                </a>
+                <div class="actions">
+                    <a href="register.html">Je n'ai pas de compte</a>
+                    <p>OU</p>
+                    <span></span>
+                    <button type="submit">Se connecter</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>
+
+<script>
+    // submit form 
+    const form = document.getElementById('loginUser');
+    // get PHPSESSID from cookie
+    // const cookie = document.cookie;
+    // const cookieArray = cookie.split(';');
+    // const PHPSESSID = cookieArray[0].split('=')[1];
+    const asyncLocalStorage = {
+        setItem: function (key, value) {
+            return Promise.resolve().then(function () {
+                localStorage.setItem(key, value);
+            });
+        },
+        getItem: function (key) {
+            return Promise.resolve().then(function () {
+                return localStorage.getItem(key);
+            });
+        }
+    };
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = form.children[0].value;
+        const password = form.children[1].value;
+        const data = {
+            email,
+            password
+        }
+        fetch('http://localhost:8100/user/login', {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                if (res.status === 200) {
+                    asyncLocalStorage.setItem('devops-token', res.data.session_id).then(function () {
+                        return asyncLocalStorage.getItem('devops-token');
+                    }).then(function (value) {
+                        console.log('Value has been set to:', value);
+                        window.location.href = 'index.html';
+                    });
+                }
+            })
+            .catch(err => console.log(err));
+    })
+</script>
